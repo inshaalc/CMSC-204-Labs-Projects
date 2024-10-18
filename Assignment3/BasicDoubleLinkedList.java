@@ -265,7 +265,7 @@ public class BasicDoubleLinkedList<T> extends java.lang.Object implements java.l
 	 * @return a node containing the targetData or null
 	 */
 	@SuppressWarnings("rawtypes")
-	public BasicDoubleLinkedList.Node removeâ€‹(T targetData, java.util.Comparator<T> comparator)
+	public BasicDoubleLinkedList.Node remove(T targetData, java.util.Comparator<T> comparator)
 	{
 		Node current = head;
 		
@@ -330,6 +330,7 @@ public class BasicDoubleLinkedList<T> extends java.lang.Object implements java.l
 			Node currentNode = tail;
 			head = null;
 			tail = null;
+			size--;
 			return currentNode.data;
 		}
 		
@@ -344,6 +345,7 @@ public class BasicDoubleLinkedList<T> extends java.lang.Object implements java.l
 		T data = tail.data;
 		current.next = null;
 		tail = current;
+		size--;
 		
 		return data;
 	}
@@ -366,6 +368,7 @@ public class BasicDoubleLinkedList<T> extends java.lang.Object implements java.l
 		{
 			Node currentNode = head;
 			head = tail = null;
+			size--;
 			return currentNode.data;
 		}
 		
@@ -374,6 +377,7 @@ public class BasicDoubleLinkedList<T> extends java.lang.Object implements java.l
 		T data = current.data;	
 		head = head.next;
 		head.prev = null;
+		size--;
 		
 		return data;
 	}
