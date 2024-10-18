@@ -33,7 +33,7 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T>
 	 * Your implementation must traverse the list only once in order to perform the insertion.
 	 * @param the data to be added to the list
 	 */
-	public void addâ€‹(T data)
+	public void add(T data)
 	{
 		// Create new node with the data from parameter
 		Node newNode = new Node(data);
@@ -133,9 +133,9 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T>
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public BasicDoubleLinkedList.Node removeâ€‹(T data, java.util.Comparator<T> comparator)
+	public BasicDoubleLinkedList.Node remove(T data, java.util.Comparator<T> comparator)
 	{
 		// Calls remove method from super class
-		return super.removeâ€‹(data,  comparator);
+		return super.remove(data, comparator);
 	}
 }
