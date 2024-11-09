@@ -21,8 +21,8 @@ public class CourseDBElement implements Comparable<CourseDBElement>
 	protected int numCredits;
 	protected String roomNum;
 	protected String instructorName;
-	
-	
+	protected CourseDBElement next;
+	protected CourseDBElement prev;
 	
 	/**
 	 * Constructor
@@ -44,6 +44,24 @@ public class CourseDBElement implements Comparable<CourseDBElement>
 	public CourseDBElement() 
 	{
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * Gets next Node in List
+	 * @return
+	 */
+	public CourseDBElement getNext()
+	{
+		return next;
+	}
+	
+	/**
+	 * Gets previous Node in List
+	 * @return
+	 */
+	public CourseDBElement getPrev()
+	{
+		return prev;
 	}
 
 	// Setters & Getter Methods
@@ -90,6 +108,23 @@ public class CourseDBElement implements Comparable<CourseDBElement>
 	public void setInstructorName(String instructorName)
 	{
 		this.instructorName = instructorName;
+	}
+	/**
+	 * Sets pointer to next node in List
+	 * @param next
+	 */
+	public void setNext(CourseDBElement next)
+	{
+		this.next = next;
+	}
+	
+	/**
+	 * Sets pointer to previous node in List
+	 * @param prev
+	 */
+	public void setPrev(CourseDBElement prev)
+	{
+		this.prev = prev;
 	}
 	
 	/**
@@ -155,7 +190,11 @@ public class CourseDBElement implements Comparable<CourseDBElement>
 	 */
 	public int compareTo(CourseDBElement o) 
 	{
-		return Integer.compare(this.crn, crn);
+		int oCRN=o.getCRN();
+		if(this.crn == oCRN)
+			return 1;
+		
+		return 0;
 	}
 	
 	/**
