@@ -19,7 +19,7 @@ public class CourseDBStructureTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cds = new CourseDBStructure(19);
+		cds = new CourseDBStructure(20);
 		testStructure = new CourseDBStructure("Testing", 20);
 	}
 
