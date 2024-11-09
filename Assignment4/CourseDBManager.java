@@ -6,35 +6,34 @@
  * Due: 10/27/2024
  * Platform/compiler: Eclipse
  * I pledge that I have completed the programming  assignment independently. 
-*  I have not copied the code from a student or any source. 
-*  I have not given my code to any student.
-*  Print your Name here: Inshaal Chaudhury
-*/
+ * I have not copied the code from a student or any source. 
+ * I have not given my code to any student.
+ * Print your Name here: Inshaal Chaudhury
+ */
 /*
  * @author Inshaal Chaudhury
  */
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
-public class CourseDBManager implements CourseDBManagerInterface
+public class CourseDBManager implements CourseDBManagerInterface 
 {
-	// Attributes
-	private CourseDBStructure courseDBS;
-	private int default_size = 20;
+	String courseId;
+	int CRN;
+	int numCredits;
+	String roomNum;
+	String instructor;
 	
-	/**
-	 * Constructor for CourseDBManager initializing the size to 10
-	 */
-	public CourseDBManager()
+	CourseDBStructure courseDB;
+	
+	public CourseDBManager() 
 	{
-		courseDBS = new CourseDBStructure(default_size);
+		courseDB = new CourseDBStructure(20);
 	}
-	
+
 	/**
 	 * Adds a course (CourseDBElement) with the given information
 	 * to CourseDBStructure.
@@ -47,65 +46,65 @@ public class CourseDBManager implements CourseDBManagerInterface
 	@Override
 	public void add(String id, int crn, int credits, String roomNum, String instructor) 
 	{
-		CourseDBElement element = new CourseDBElement(id, crn, credits, roomNum, instructor);
-		courseDBS.add(element);
+		CourseDBElement course = new CourseDBElement(id, crn, credits, roomNum, instructor);
+		courseDB.add(course);
 	}
 
 	/**
-	 * finds  CourseDBElement based on the crn key
+	 * Finds CourseDBElement based on the crn key
 	 * @param crn course crn (key)
 	 * @return a CourseDBElement object
 	 */
 	@Override
 	public CourseDBElement get(int crn) 
 	{
-		try
+		try 
 		{
-			return courseDBS.get(crn);
-		}
-		catch (IOException e)
+			return courseDB.get(crn);
+		} 
+		catch (IOException e) 
 		{
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 	/**
 	 * Reads the information of courses from a test file and adds them
 	 * to the CourseDBStructure data structure
 	 * @param input input file 
-	 * @throws FileNotFoundException if file does not exists
+	 * @throws FileNotFoundException if file does not exist
 	 */
 	@Override
 	public void readFile(File input) throws FileNotFoundException 
 	{
-		try (Scanner read = new Scanner(input))
+		Scanner scanner = new Scanner(input);
+		String[] arr;
+		while(scanner.hasNextLine())
 		{
-			while (read.hasNextLine())
-			{
-				String line = read.nextLine();
-				String[] data = line.split(" ", 5);
-				CourseDBElement element = new CourseDBElement(data[0], Integer.parseInt(data[1]), Integer.parseInt(data[2]), data[3], data[4]);
-				courseDBS.add(element);
-			}
+			String s = scanner.nextLine();
+			
+			arr = s.split(" ",5);
+			courseId = arr[0];
+			CRN = Integer.valueOf(arr[1]);
+			numCredits = Integer.valueOf(arr[2]);
+			roomNum = arr[3];
+			instructor = arr[4];
+			CourseDBElement c = new CourseDBElement(courseId, CRN, numCredits, roomNum, instructor);
+			courseDB.add(c);
 		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		
+		scanner.close();
 	}
 
 	/**
 	 * @return an array list of string representation of each course in 
 	 * the data structure separated by a new line. 
-	 * Refer to the following example:
+	 * Example:
 	 * Course:CMSC500 CRN:39999 Credits:4 Instructor:Nobody InParticular Room:SC100
-	 * Course:CMSC600 CRN:4000 Credits:4 Instructor:Somebody Room:SC200
 	 */
 	@Override
 	public ArrayList<String> showAll() 
 	{
-		return courseDBS.showAll();
+		return courseDB.showAll();
 	}
 }
