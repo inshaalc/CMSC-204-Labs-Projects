@@ -40,9 +40,9 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public boolean addRoad(String town1, String town2, int weight, String roadName) 
 	{
-		Town town1a = getTown(town1);
-		Town town2a = getTown(town2);
-		graph.addEdge(town1a, town2a, weight, roadName);
+		Town t1a = getTown(town1);
+		Town t2a = getTown(town2);
+		graph.addEdge(t1a, t2a, weight, roadName);
 		return true;
 	}
 
@@ -55,13 +55,12 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public String getRoad(String town1, String town2) 
 	{
-		Town town1a = getTown(town1);
-		Town town2a = getTown(town2);
-		Road road = graph.getEdge(town1a, town2a);
-		
-		for (Road r : graph.edgesOf(town1a))
+		Town t1a = getTown(town1);
+		Town t2a = getTown(town2);
+		Road road = graph.getEdge(t1a, t2a);
+		for (Road r : graph.edgesOf(t1a))
 		{
-			if (r.getDestination().equals(town2a) || r.getSource().equals(town2a))
+			if (r.getDestination().equals(t2a) || r.getSource().equals(t2a))
 				return road.getName();
 		}
 		return null;
@@ -75,8 +74,8 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public boolean addTown(String v) 
 	{
-		Town town1a = new Town(v);
-		return graph.addVertex(town1a);
+		Town t1a = new Town(v);
+		return graph.addVertex(t1a);
 	}
 
 	/**
@@ -87,10 +86,10 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public Town getTown(String name) 
 	{
-		Town town1a = new Town(name);
+		Town t1a = new Town(name);
 		for (Town town : graph.vertexSet())
 		{
-			if (town1a.equals(town))
+			if (t1a.equals(town))
 			{
 				return town;
 			}
@@ -106,8 +105,8 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public boolean containsTown(String v) 
 	{
-		Town town1a = new Town(v);
-		return graph.containsVertex(town1a);
+		Town t1a = new Town(v);
+		return graph.containsVertex(t1a);
 	}
 
 	/**
@@ -119,9 +118,9 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public boolean containsRoadConnection(String town1, String town2) 
 	{
-		Town town1a = getTown(town1);
-		Town town2a = getTown(town2);
-		return graph.containsEdge(town1a, town2a);
+		Town t1a = getTown(town1);
+		Town t2a = getTown(town2);
+		return graph.containsEdge(t1a, t2a);
 	}
 
 	/**
@@ -150,14 +149,13 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public boolean deleteRoadConnection(String town1, String town2, String road) 
 	{
-		Town town1a = getTown(town1);
-		Town town2a = getTown(town2);
+		Town t1a = getTown(town1);
+		Town t2a = getTown(town2);
 		
-		if (graph.containsEdge(town1a, town2a))
+		if (graph.containsEdge(t1a, t2a))
 		{
-			Road road1 = graph.getEdge(town1a, town2a);
-			Road road2 = graph.removeEdge(town1a, town2a, road1.getWeight(), road);
-			
+			Road road1 = graph.getEdge(t1a, t2a);
+			Road road2 = graph.removeEdge(t1a, t2a, road1.getWeight(), road);
 			if (road2.equals(road1))
 				return true;
 		}
@@ -188,7 +186,6 @@ public class TownGraphManager implements TownGraphManagerInterface
 		{
 			towns.add(town.getName());
 		}
-		
 		Collections.sort(towns);
 		return towns;
 	}
@@ -203,10 +200,9 @@ public class TownGraphManager implements TownGraphManagerInterface
 	@Override
 	public ArrayList<String> getPath(String town1, String town2) 
 	{
-		Town town1a = getTown(town1);
-		Town town2a = getTown(town2);
-		
-		ArrayList<String> path = graph.shortestPath(town1a, town2a);
+		Town t1a = getTown(town1);
+		Town t2a = getTown(town2);
+		ArrayList<String> path = graph.shortestPath(t1a, t2a);
 		return path;
 	}
 	
@@ -218,7 +214,6 @@ public class TownGraphManager implements TownGraphManagerInterface
 	public void populateTownGraph(File input) throws FileNotFoundException
 	{
 		ArrayList<String> record = new ArrayList<>();
-		
 		if (input == null || !input.exists())
 		{
 			throw new FileNotFoundException();
@@ -229,7 +224,6 @@ public class TownGraphManager implements TownGraphManagerInterface
 		{
 			record.add(scanner.nextLine());
 		}
-		
 		for (String line : record)
 		{
 			String[] split = line.split(";");
@@ -243,7 +237,6 @@ public class TownGraphManager implements TownGraphManagerInterface
 			addTown(destination);
 			addRoad(source, destination, Integer.parseInt(weight), rName);
 		}
-		
 		scanner.close();
 	}
 }
